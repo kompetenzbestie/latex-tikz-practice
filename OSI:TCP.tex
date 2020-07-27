@@ -1,0 +1,65 @@
+\documentclass[10pt,fleqn]{article}
+
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage[ngerman]{babel}
+\usepackage[left=3cm, right=3cm]{geometry}
+\usepackage{tikz}
+
+\begin{document}
+
+\centering
+\begin{tikzpicture}
+\tikzstyle{every node}=[font=\footnotesize]
+
+% OSI
+
+\node [font=\large, anchor=west] at (0, 7.5) {OSI};
+
+\draw (0, 6) rectangle node {Application Layer} (3.5, 7);
+\draw (0, 5) rectangle node {Presentation Layer} (3.5, 6);
+\draw (0, 4) rectangle node {Session Layer} (3.5, 5);
+\draw (0, 3) rectangle node {Transport Layer} (3.5, 4);
+\draw (0, 2) rectangle node {Network Layer} (3.5, 3);
+\draw (0, 1) rectangle node {Data Link Layer} (3.5, 2);
+\draw (0, 0) rectangle node {Physical Layer} (3.5, 1);
+
+
+% TCP/IP
+
+\node [font=\large, anchor=west] at (4, 7.5) {TCP/IP};
+
+\node at (5.75, 6.5) {Application Layer};
+\draw (4, 4) rectangle (7.5, 7);
+\draw [densely dotted] (4, 6) -- (7.5, 6);
+\draw [densely dotted] (4, 5) -- (7.5, 5);
+
+\draw (4, 3) rectangle node {Transport Layer} (7.5, 4);
+\draw (4, 2) rectangle node {Network Layer} (7.5, 3);
+\draw (4, 0) rectangle node [align=center] {Network Access\\Layer} (7.5, 2);
+
+
+% TCP/IP-Protocols
+
+\node [font=\large, anchor=west] at (8, 7.5) {TCP/IP-Protocols};
+
+\draw (8, 4) rectangle node [rotate=90] {HTTP} (9, 7);
+\draw (9, 4) rectangle node [rotate=90] {SMTP} (10, 7);
+\draw (10, 4) rectangle node [rotate=90] {FTP} (11, 7);
+\draw (11, 4) rectangle node [rotate=90] {DNS} (12, 7);
+\draw (12, 4) rectangle node [rotate=90] {Telnet} (13, 7);
+\draw (8, 3) rectangle node {TCP} (10.5, 4);
+\draw (10.5, 3) rectangle node {UDP} (13, 4);
+\draw (8, 2) rectangle node {IP} (13, 3);
+\draw (8, 2) rectangle node {ARP} (9, 2.5);
+\draw (11, 2.5) rectangle node {IGMP} (12, 3);
+\draw (12, 2.5) rectangle node {ICMP} (13, 3);
+\draw (8, 0) rectangle node {Ethernet} (9.25,2);
+\draw (9.25, 0) rectangle node [align=center] {Token\\Ring} (10.5,2);
+\draw (10.5, 0) rectangle node {ATM} (11.75,2);
+\draw (11.75, 0) rectangle node [align=center] {Frame\\Relay} (13,2);
+
+\end{tikzpicture}
+
+\end{document}

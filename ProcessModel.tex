@@ -1,0 +1,39 @@
+\documentclass[10pt,fleqn]{article}
+
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage[ngerman]{babel}
+\usepackage[left=3cm, right=3cm]{geometry}
+\usepackage{tikz}
+
+\begin{document}
+
+\centering
+\begin{tikzpicture}
+\tikzstyle{every node}=[font=\scriptsize]
+
+\node at (0,0) [circle, minimum size=1.8cm, draw, align=center] (BS) {Blocked/\\Suspended};
+\node at (0,4) [circle, minimum size=1.8cm, draw, align=center] (RS) {Ready/\\Suspended};
+\node at (2,7.46) [circle, minimum size=1.8cm, draw] (N) {New};
+\node at (4,0) [circle, minimum size=1.8cm, draw] (B) {Blocked};
+\node at (4,4) [circle, minimum size=1.8cm, draw] (Re) {Ready};
+\node at (8,4) [circle, minimum size=1.8cm, draw] (Ru) {Running};
+\node at (12,4) [circle, minimum size=1.8cm, draw] (E) {Exit};
+\draw [->] (BS) -- (RS) node[midway,above,rotate=90] {Event};
+\draw [->] (BS.10) -- (B.170) node[midway,above] {Activate};
+\draw [<-] (BS.350) -- (B.190) node[midway,below] {Suspend};
+\draw [->] (B) -- (Re) node[midway,above,rotate=90] {Event};
+\draw [->] (RS.10) -- (Re.170) node[midway,above] {Activate};
+\draw [<-] (RS.350) -- (Re.190) node[midway,below] {Suspend};
+\draw [->] (N) -- (RS) node[midway,below,rotate=60] {Admit};
+\draw [->, densely dotted] (N) -- (Re) node[midway,above,rotate=300] {Admit};
+\draw [->] (Re.10) -- (Ru.170) node[midway,above] {Dispatch};
+\draw [<-] (Re.350) -- (Ru.190) node[midway,below] {Timeout};
+\draw [->] (Ru) -- (B) node[midway,below,rotate=45] {Event wait};
+\draw [->] (Ru) -- (E) node[midway,above] {Release};
+%\draw [->] (Ru.140) .. controls (4,7) .. (RS.40) node[midway] {Suspend};
+
+\end{tikzpicture}
+
+\end{document}
