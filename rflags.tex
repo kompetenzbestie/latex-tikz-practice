@@ -1,0 +1,41 @@
+\documentclass[10pt,fleqn]{article}
+
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage[ngerman]{babel}
+\usepackage[left=3cm, right=3cm]{geometry}
+\usepackage{tikz}
+
+\begin{document}
+
+\centering
+\begin{tikzpicture}
+
+\node at (0.5,16.5) {\it rflags};
+
+\foreach \y/\t in {0/15,1/14,2/13,3/12,4/11,5/10,6/9,7/8,8/7,9/6,10/5,11/4,12/3,13/2,14/1,15/0}
+	\node at (-0.5,{\y+0.5}) {\t};
+
+\foreach \y/\t in {4/OF,5/DF,6/IF,7/TF,8/SF,9/ZF,10/,11/AF,12/,13/PF,14/,15/CF}
+	\draw (0,\y) rectangle node {\t} (1,{\y+1});
+
+\draw (0,2) rectangle node {IOPL} (1,4);
+\draw (0,1) rectangle node {NT} (1,2);
+\draw (0,0) rectangle node {} (1,1);
+
+\node at (1.5,15.5) [anchor=west] {{\bf Carry flag} - 1 if an unsigned overflow occured};
+\node at (1.5,13.5) [anchor=west] {{\bf Parity flag} - 1 if result had even parity};
+\node at (1.5,11.5) [anchor=west] {{\bf Adjust flag/Auxiliary carry flag} - 1 if an overflow occured at the lowest nibble};
+\node at (1.5,9.5) [anchor=west] {{\bf Zero flag} - 1 if result was 0};
+\node at (1.5,8.5) [anchor=west] {{\bf Sign flag} - 1 if result was negative};
+\node at (1.5,7.5) [anchor=west] {{\bf Trap flag} - 1 if code is to be executed in single-step mode};
+\node at (1.5,6.5) [anchor=west] {{\bf Interrupt flag} - 1 if CPU is to respond to interrupts};
+\node at (1.5,5.5) [anchor=west] {{\bf Direction flag} - Indicates string reading direction - 1 if backwards, 0 if forwards};
+\node at (1.5,4.5) [anchor=west] {{\bf Overflow flag} - 1 if a signed overflow occured};
+\node at (1.5,3) [anchor=west, align=left] {{\bf I/O port privilege level} - Shows the I/O privilege of the current task, as dictated\\ by the protection ring model};
+\node at (1.5,1.5) [anchor=west] {{\bf Nested task} - 1 if the current task is nested};
+
+\end{tikzpicture}
+
+\end{document}
