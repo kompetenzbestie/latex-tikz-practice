@@ -1,0 +1,65 @@
+\documentclass[10pt,fleqn, a4paper]{article}
+
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage[ngerman]{babel}
+\usepackage[left=2cm, right=3cm]{geometry}
+\usepackage{tikz}
+
+\usetikzlibrary{decorations.pathreplacing}
+
+\begin{document}
+
+\centering
+\begin{tikzpicture}
+
+\node at (7,11.75) {Geschichtswissenschaft};
+
+\draw (0,2.5) [rounded corners=5mm] rectangle node (GeschB) {Geschichtsbewusstsein} (5,4.5);
+\draw (0,0) [rounded corners=5mm] rectangle node (BI) {individuell} (2.25,2);
+\draw (2.75,0) [rounded corners=5mm] rectangle node (BK) {kollektiv} (5,2);
+
+\draw [decorate, decoration={brace, amplitude=8.5, raise=2.5pt}] (1.125,2) -- (3.875,2);
+
+\draw (9,0) [rounded corners=5mm] rectangle node (GeschK) {Geschichtskultur} (14,2);
+\draw (9,2.5) [rounded corners=5mm] rectangle node [rotate=90] (KAE) {ästhetisch} (10.3,4.5);
+\draw (10.85,2.5) [rounded corners=5mm] rectangle node [rotate=90] (KPO) {politisch} (12.15,4.5);
+\draw (12.7,2.5) [rounded corners=5mm] rectangle node [rotate=90] (KPO) {kognitiv} (14,4.5);
+\draw [decorate, decoration={brace, mirror, amplitude=8.5, raise=2.5pt}] (9.65,2.5) -- (13.35,2.5);
+
+
+\draw (4.5,6.5) [rounded corners=10mm] rectangle node (GeschD) {Geschichtsdidaktik} (9.5, 8.5);
+\draw (1.75,9) [rounded corners=10mm] rectangle node (GeschT) {Geschichtstheorie} (6.75, 11);
+\draw (7.25,9) [rounded corners=10mm] rectangle node (GeschF) {Geschichtsforschung} (12.25, 11);
+
+\draw (1.5,6.25) [rounded corners=10mm] rectangle (12.5,11.25);
+
+\draw (0,-5) [rounded corners=10mm] rectangle node (HistL) {Historisches Lernen} (5, -3);
+\draw (9,-5) [rounded corners=10mm] rectangle node (GeschU) {Geschichtsunterricht} (14, -3);
+
+%Geschichtsunterricht
+
+\draw [<-] (5,-4) -- (9,-4) node[midway,above] {ermöglicht};
+\draw [->] (11,0) -- (11,-3) node[midway,above,rotate=90] {Institution};
+\draw [<-] (12,0) -- (12,-3) node[midway,below,rotate=90] {thematisiert};
+\draw [->, rounded corners=5mm] (9.5,7.5) -- (15,7.5) -- (15,-4) node[midway,below,rotate=90] {lenkt} -- (14,-4);
+
+%Historisches Lernen
+
+\draw [<-] (4.8,-3.2) -- (9,0) node[midway,above,rotate=37] {ermöglicht};
+\draw [<-, rounded corners=5mm] (0,1) -- (-1,1) -- (-1,-4) node[midway,above,rotate=90] {entwickelt} -- (0,-4);
+
+%Geschichtsbewusstsein
+
+\draw [->, rounded corners=5mm] (2.5,4.5) -- (2.5,7.5) -- node[midway,align=center] {Grundlage\\für} (4.5, 7.5);
+
+\draw [decorate, decoration={brace, mirror, amplitude=8.5, raise=2.5pt}] (1.125,0) -- (3.875,0);
+
+\draw [->, rounded corners=5mm] (2.5,-0.5) -- (2.5,-1) -- node[midway,align=center] {bilden im\\Austausch} (6,-1) -- (6,1) --  (9, 1);
+
+\draw[->, rounded corners=5mm] (7,6.5) -- node[midway,above,rotate=90] {beeinflusst Diskurs} (7, 1) -- (9,1);
+
+\end{tikzpicture}
+
+\end{document}

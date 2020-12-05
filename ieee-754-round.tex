@@ -1,0 +1,33 @@
+\documentclass[10pt,fleqn]{article}
+
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage[ngerman]{babel}
+\usepackage[left=3cm, right=3cm]{geometry}
+\usepackage{tikz}
+
+\usetikzlibrary{shapes,snakes}
+
+\begin{document}
+
+\centering
+\begin{tikzpicture}
+
+\node at (0,0) [draw, diamond] (r) {r};
+\node at (2,0) [draw, rectangle, rounded corners=2.5mm] (rd) {Round down};
+\node at (0,-1.5) [draw, diamond] (s) {s};
+\node at (2,-1.5) [draw, diamond] (g) {g};
+\node at (0,-3) [draw, rectangle, rounded corners=2.5mm] (ru) {Round up};
+
+\draw [->] (0,1) -- (r);
+\draw [->] (r) -- (rd) node[midway, above] {0};
+\draw [->] (r) -- (s) node[midway, left] {1};
+\draw [->] (s) -- (g) node[midway, above] {0};
+\draw [->] (s) -- (ru) node[midway, left] {1};
+\draw [->] (g) -- (rd) node[midway, left] {0};
+\draw [->, rounded corners=2.5mm] (g) -- (2,-3) -- (ru) node[midway, above] {1};
+
+\end{tikzpicture}
+
+\end{document}
