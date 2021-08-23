@@ -1,0 +1,145 @@
+\documentclass[10pt,fleqn, a4paper]{article}
+
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage[ngerman]{babel}
+\usepackage[left=2cm, right=3cm]{geometry}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{amssymb}
+
+\usetikzlibrary{shapes, positioning, automata}
+
+\begin{document}
+
+{\bf Gruppen und Ringe}\newline
+
+\begin{center}
+
+\begin{tabular}{|c|c|c|c|c|}\hline
+&Assoziativ& Neut. Element&Inv. Element&Kommutativ\\\hline\hline
+Halbgruppe&$\checkmark$&&&\\\hline
+Monoid&$\checkmark$&$\checkmark$&&\\\hline
+Gruppe&$\checkmark$&$\checkmark$&$\checkmark$&\\\hline
+Abelsche Gr.&$\checkmark$&$\checkmark$&$\checkmark$&$\checkmark$\\\hline
+\end{tabular}
+
+
+\vspace{0.5cm}
+
+\begin{itemize}
+\item[(R1)] $(R,\oplus)$ ist abelsche Gruppe.
+\item[(R2)] $(R,\odot)$ ist Halbgruppe.
+\item[(R3)] $\forall a,b,c\in R:a\odot(b\oplus c)=(a\odot b)\oplus (a\odot c)$\\
+$\forall a,b,c\in R:(a\oplus b)\odot c=(a\odot c)\oplus (b\odot c)$
+\end{itemize}
+
+$(R,\odot)$ kommutatives Monoid $\rightarrow$ Kommutativer Ring mit Einselement
+
+$(R\setminus\{0\},\oplus)$ abelsche Gruppe $\rightarrow$ Körper
+
+\end{center}
+
+\vspace{1cm}
+
+{\bf Komplexe Zahlen}
+
+\begin{align*}
+z&=x+iy,\ w=u+iv\\\\
+z\pm w&:= (x\pm u)+i(y\pm v)\\
+z\cdot w&:=(xu-yu)+i(xv+yu)\\
+\frac{z}{w}&:=\frac{xu+yv}{u^2+v^2}+i\frac{yu-xv}{u^2+v^2}\text{ nur für }w\neq 0
+\end{align*}
+
+Polarkoordinaten $\rightarrow$ Kartesische Koordinaten $(a,\phi)\rightarrow z=a\ cos\phi+i a\ sin\phi$
+
+Kartesische Koordinaten $\rightarrow$ Polarkoordinaten $z \rightarrow (|z|,\ arg\ z)$ mit $arg\ z\left\{\begin{matrix}
+arccos\frac{x}{|z|}\text{ falls }y\geq0\\
+-arccos\frac{x}{|z|}\text{ falls }y<0
+\end{matrix}\right.$
+
+\vspace{1cm}
+
+{\bf Vektorraumaxiome}
+
+\begin{enumerate}
+\item $(V,\oplus)$ ist eine abelsche Gruppe	mit neutralem Element $\vec 0$
+\item $\forall\lambda,\mu\in K\forall\vec v\in V:\lambda\odot(\mu\odot\vec v)=(\lambda\cdot\mu)\odot\vec v$
+\item $\forall\vec v\in V:1\odot\vec v=\vec v$
+\item $\forall\lambda,\mu\in K\forall\vec v\in V:(\lambda+\mu)\odot\vec v=(\lambda\odot\vec v)\oplus(\mu\odot\vec v)$
+\item $\forall\lambda\in K\forall\vec v,\vec w\in V:\lambda\odot(\vec v\oplus\vec w)=(\lambda\odot\vec v)\oplus(\lambda\odot\vec w)$
+\end{enumerate}
+
+\vspace{1cm}
+
+{\bf Lineare Abbildungen}
+
+\begin{itemize}
+\item Monomorphismus, wenn $f$ injektiv
+\item Epimorphismus, wenn $f$ surjektiv
+\item Isomorphismus, wenn $f$ bijektiv
+\item Endomorphismus, wenn $V=W$
+\item Automorphismus, wenn $V=W$ und $f$ bijektiv
+\end{itemize}
+
+\begin{center}
+$dim\ V=dim(Ker\ f)+dim(Im\ f)=dim(Ker\ f)+rg\ f$
+\end{center}
+
+\vspace{1cm}
+
+{\bf Basiswechsel}
+
+\begin{center}
+$A^{\mathcal B'}_{\mathcal C'}=T^{\mathcal C}_{\mathcal C'}\cdot A^{\mathcal B}_{\mathcal C}\cdot T^{\mathcal B'}_{\mathcal B}$
+\end{center}
+
+Wobei $T^{\mathcal B'}_{\mathcal B}$ die Darstellung von $\mathcal B$ in der neuen Basis $\mathcal B'$ ist.
+
+\vspace{1cm}
+
+{\bf Determinanten}
+
+Verhalten von Determinanten bei elementaren Zeilenumformungen:
+
+\begin{enumerate}
+\item $det\ A'=-det\ A$
+\item $det\ A'=\lambda\cdot det\ A$
+\item Die Determinante verändert sich nicht.
+\end{enumerate}
+
+\vspace{1cm}
+
+{\bf Kram mit Normen}
+
+\begin{align*}
+\|\vec v\|&\geq 0\\
+\|\vec v\|&=0\Leftrightarrow\vec v=\vec 0\\
+\|\lambda\vec v\|&=|\lambda|\cdot\|\vec v\|\\
+\|\vec u+\vec v\|&\leq \|\vec v\|+\|\vec u\|\\
+\sphericalangle (\vec u,\vec v)&=arccos\frac{\left<\vec u,\vec v\right>}{\|\vec u\|\|\vec v\|}
+\end{align*}
+
+\vspace{1cm}
+
+{\bf Gram-Schmidtsches Orthonormalisierungsverfahren}
+
+\begin{align*}
+\tilde u_1&=\vec v_1 &\text{und }\vec u_1=\frac{\tilde u_1}{\|\tilde u_1\|}\\
+\tilde u_2&=\vec v_2-\left<\vec v_2,\vec u_1\right>\cdot\vec u_1 &\text{und }\vec u_2=\frac{\tilde u_2}{\|\tilde u_2\|}\\
+\tilde u_k&=\vec v_k-\sum^{k-1}_{i=1}\left<\vec v_k,\vec u_i\right>\cdot\vec u_i &\text{und }\vec u_k=\frac{\tilde u_k}{\|\tilde u_k\|}
+\end{align*}
+
+\vspace{1cm}
+
+{\bf Arten von Codes}
+
+\begin{align*}
+C\text{ ist }k\text{-fehlererkennend}&\Leftrightarrow\forall\vec v\in C:B_k(\vec c)\cap C=\{\vec c\}\\
+&\Leftrightarrow d(C)\geq k+1\\\\
+C\text{ ist }k\text{-fehlerkorrigierend}&\Leftrightarrow\forall\vec c,\vec c'\in C:\left(\vec c\neq\vec c'\Rightarrow B_k(\vec c)\cap B_k(\vec c')=\emptyset\right)\\
+&\Leftrightarrow d(C)\geq 2k+1
+\end{align*}
+
+\end{document}

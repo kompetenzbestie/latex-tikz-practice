@@ -1,0 +1,201 @@
+\documentclass[10pt,fleqn, a4paper]{article}
+
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage[ngerman]{babel}
+\usepackage[left=2cm, right=3cm]{geometry}
+\usepackage{tabularx}
+\usepackage{tikz}
+
+\usetikzlibrary{shapes, positioning, automata}
+
+\begin{document}
+
+{\bf RA zu EA}\newline
+
+\begin{center}
+\begin{tikzpicture}[->,auto,node distance=2.5cm]
+\tikzstyle{every state}=[minimum size=1.1cm]
+\node[initial, state,initial text=] (A) {$R_0^1$};
+\node (T) [left of=A] {$L(A)=R^1R^2$};
+\node[state] (B) [right of=A] {$R_F^1$};
+\node[state] (C) [right of=B] {$R_0^2$};
+\node[state,accepting] (D) [right of=C] {$R_F^2$};
+
+\path (A) edge [bend left,dashed] (B);
+\path (A) edge [bend right,dashed] (B);
+\path (B) edge node {$\varepsilon$} (C);
+\path (C) edge [bend left,dashed] (D);
+\path (C) edge [bend right,dashed] (D);
+\end{tikzpicture}
+
+\vspace{1.5cm}
+
+\begin{tikzpicture}[->,auto,node distance=2.5cm]
+\tikzstyle{every state}=[minimum size=1.1cm]
+\node[initial, state, initial text=] (A) {$q_0$};
+\node (T) [left of=A] {$L(A_1)\cup L(A_2)$};
+\node[state] (B) [above right of=A] {$q_0^1$};
+\node[state] (C) [right of=B] {$q_F^1$};
+\node[state] (D) [below right of=A] {$q_0^2$};
+\node[state] (E) [right of=D] {$q_F^2$};
+\node[state,accepting] (F) [above right of=E] {$q_F$};
+
+\path (A) edge node {$\varepsilon$} (B);
+\path (A) edge node {$\varepsilon$} (D);
+\path (B) edge [bend left,dashed] (C);
+\path (B) edge [bend right,dashed] (C);
+\path (D) edge [bend left,dashed] (E);
+\path (D) edge [bend right,dashed] (E);
+\path (C) edge node {$\varepsilon$} (F);
+\path (E) edge node {$\varepsilon$} (F);
+\end{tikzpicture}
+
+\vspace{1.5cm}
+
+\begin{tikzpicture}[->,auto,node distance=2.5cm]
+\tikzstyle{every state}=[minimum size=1.1cm]
+\node[initial, state, initial text=] (A) {$q_0$};
+\node (T) [left of=A] {$(L(A_1))^*$};
+\node[state] (B) [below right of=A] {$q_0^1$};
+\node[state] (C) [right of=B] {$q_F^1$};
+\node[state,accepting] (D) [above right of=C] {$q_F$};
+
+\path (A) edge node {$\varepsilon$} (B);
+\path (A) edge node {$\varepsilon$} (D);
+\path (B) edge [bend left,dashed] (C);
+\path (B) edge [bend right,dashed] (C);
+\path (C) edge node {$\varepsilon$} (D);
+\path (C) edge [bend left=90] node {$\varepsilon$} (B);
+\end{tikzpicture}
+\end{center}
+
+{\bf $\varepsilon$-Elimination}
+
+\begin{enumerate}
+
+\item Gruppiere Folge von $\varepsilon$-Übergängen zusammen mit nachfolgendem $\Sigma$-Übergang zu einem einzigen $\Sigma$-Übergang.
+
+\[\overline\delta:=\delta\cup\left\{(q,x,q'')\middle|x\in\Sigma,\ \exists q'\in Q:q\xrightarrow[\varepsilon]{*}q',\ (q',x,q'')\in\delta\right\}\]
+
+\item Ernennt Zustände, von denen ein akzeptierender Zustand über eine Folge von $\varepsilon$-Übergängen erreichbar ist, zu akzeptierenden Zuständen.
+
+\[\overline F:=F\cup\left\{q\middle|\exists q'\in F:q\xrightarrow[\varepsilon]{*}q'\right\}\]
+
+\item Lösche alle $\varepsilon$-Übergänge.
+
+\[\overline{\overline{\delta}}:=\left\{(q,x,q')\in\overline\delta\middle|x\neq\varepsilon\right\}\]
+
+\end{enumerate}
+
+{\bf EA zu RA - Kleene-Algorithmus}
+
+\begin{gather*}
+R_{ij}^{(k)}=R_{ij}^{(k-1)}\cup R_{ik}^{(k-1)}\left(R_{kk}^{(k-1)}\right)^*R_{kj}^{(k-1)}\\\\
+i=k,\ j\neq k\Rightarrow R_{kj}^{(k)}=\left(R_{kk}^{(k-1)}\right)^*R_{kj}^{(k-1)}\\
+i\neq k,\ j=k\Rightarrow R_{ik}^{(k)}=R_{ik}^{(k-1)}\left(R_{kk}^{(k-1)}\right)^*\\
+i=j=k\Rightarrow R_{kk}^{(k)}=\left(R_{kk}^{(k-1)}\right)^*
+\end{gather*}
+
+{\bf Abschlusseigenschaften}\newline
+
+\begin{tabular}{|c|c|c|}
+\hline
+{\bf Klasse}&{\bf Abgeschlossen unter}&{\bf Nicht abgeschlossen unter}\\\hline\hline
+Reguläre Sprachen&$\cup,\ \cap,\ \setminus,\ \Sigma^*\setminus L,\ \cdot,\ *,\ L^R,\ hom,\ hom^{-1}$&\\\hline
+Kontextfreie Sprachen&$\cup,\ \cdot,\ *,\ hom,\ hom^{-1}$&$\Sigma^*\setminus L,\ \cap$\\\hline
+Entscheidbare Sprachen&$\cup,\ \cap,\ \cdot,\ *,\ \Sigma^*\setminus L$&\\\hline
+Semientscheidbare Sprachen&$\cup,\ \cap,\ \cdot,\ *$&$\Sigma^*\setminus L$\\\hline
+\end{tabular}\newline\newline
+
+{\bf Chomsky-Hierachie}\newline
+
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+{\bf Typ}&{\bf Name}&{Bedingung}\\\hline\hline
+Typ 0&Semientscheidbar&Keine Einschränkungen\\\hline
+Typ 1&Kontextsensitiv&$|\alpha|\leq|\beta|$\\\hline
+Typ 2&Kontextfrei&$\alpha\in V$\\\hline
+Typ 3&Regulär&$\alpha\in V,\ \beta\in\Sigma V\cup\Sigma\cup\{\varepsilon\}$\\\hline
+\end{tabular}
+\end{center}
+
+\begin{center}
+Typ 3 $\subset$ Typ 2 $\subset$ Typ 1 $\subset$ Entscheidbar $\subset$ Typ 0 $\subset$ Alle Sprachen $\mathfrak P(\Sigma^*)$
+\end{center}
+
+{\bf Reduktionen}\newline
+
+Wenn $L_1\leq L_2$, dann gilt:
+\begin{itemize}
+\item $L_2$ entscheidbar $\Rightarrow$ $L_1$ entscheidbar
+\item $L_2$ nicht semientscheidbar $\Rightarrow$ $L_1$ nicht semientscheidbar\newline
+\end{itemize}
+
+{\bf Kontrapositionen der Pumpinglemmata}\newline
+
+\begin{minipage}[t]{0.5\textwidth}
+L ist nicht regulär, wenn
+
+{\bf Für jedes} $n\in\mathbb N$ gilt:
+
+Es gibt {\bf ein} Wort $w\in L$ mit $|w|\geq n$, sodass
+
+{\bf für eine} Zerlegung $w=xyz$ mit $|xy|\leq n$ und $y\neq\varepsilon$ gilt
+
+{\bf für alle} $i\in\mathbb N$ gilt: $xy^iz\notin L$
+\end{minipage}
+\begin{minipage}[t]{0.5\textwidth}
+L ist nicht kontextfrei, wenn
+
+{\bf Für jedes} $n\in\mathbb N$ gilt:
+
+Es gibt {\bf ein} Wort $w\in L$ mit $|w|\geq n$, sodass
+
+{\bf für eine} Zerlegung $w=xyzuv$ mit $|yzu|\leq n$ und $yu\neq\varepsilon$ gilt
+
+{\bf für alle} $i\in\mathbb N$ gilt: $xy^izu^kv\notin L$
+\end{minipage}
+
+{\bf Umwandlung in CNF}\newline
+
+\begin{enumerate}
+
+\item {\it Trennen von Terminalsymbolen}
+
+Für jedes $\sigma\in\Sigma$ erzeuge eine neue Regel $V_\sigma\rightarrow\sigma$ und ersetze $\sigma$ durch $V_\sigma$ in jeder anderen Ableitungsregel.
+
+\item {\it Beseitigung zu langer Regeln}
+
+Für jede Regel Länge $k\geq 3$ führe $k-2$ neue Variablen und $k-1$ neue Regeln mit Länge $2\leq$ ein, die die ursprünglichen Regeln ersetzen.
+
+\item {\it $\varepsilon$-Elimination}
+
+\begin{itemize}
+
+\item bestimme $V_\varepsilon:=\{A\in V|A\overset{*}{\Rightarrow}\varepsilon\}$
+\item für alle $A\rightarrow BC$
+	\begin{itemize}
+	
+	\item $B\in V_\varepsilon\Rightarrow$ zusätzliche Regel $A\rightarrow C$
+	\item $C\in V_\varepsilon\Rightarrow$ zusätzliche Regel $A\rightarrow B$
+		
+	\end{itemize}
+	
+\item entferne alle Regeln der Form $A\rightarrow\varepsilon$
+
+\end{itemize}
+
+\item {\it Beseitigung von Einheitsregeln}
+
+\begin{itemize}
+\item wenn $A\overset{*}{\Rightarrow}B$ und $B\rightarrow CD$ füge Regel $A\rightarrow CD$ hinzu
+\item wenn $A\overset{*}{\Rightarrow}B$ und $B\rightarrow\sigma$ füge Regel $A\rightarrow\sigma$ hinzu
+\item lasse alle Einheitsregeln weg
+\end{itemize}
+
+\end{enumerate}
+
+\end{document}

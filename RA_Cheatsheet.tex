@@ -1,0 +1,182 @@
+\documentclass[10pt,fleqn, a4paper]{article}
+
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage[ngerman]{babel}
+\usepackage[left=2cm, right=3cm]{geometry}
+\usepackage{tabularx}
+\usepackage{tikz}
+
+\usetikzlibrary{shapes.geometric}
+
+\begin{document}
+
+\begin{center}
+\begin{minipage}[t]{0.5\textwidth}
+{\bf nasm parameter registers}\newline
+
+\begin{tabular}{*{8}{|l}|}
+\hline
+{\bf Parameter} & 1 & 2 & 3 & 4 & 5 & 6 & 7+\\
+\hline
+{\bf Register} & rdi & rsi & rdx & rcx & r8 & r9 & Stack\\
+\hline
+\end{tabular}
+\end{minipage}
+\end{center}
+
+\vspace*{1cm}
+
+\begin{minipage}[t]{0.5\textwidth}
+{\bf 6-layer-computer-model}\newline
+
+\begin{tikzpicture}
+\node at (-1,0.375) {Level 0};
+\draw (0,0) rectangle node {Digital logic level} (5, 0.75);
+\node at (-1, 1.375) {Level 1};
+\draw (0,1) rectangle node {Microarchitecture level} (5, 1.75);
+\node at (-1, 2.375) {Level 2};
+\draw (0,2) rectangle node {ISA level} (5, 2.75);
+\node at (-1, 3.375) {Level 3};
+\draw (0,3) rectangle node {OS machine level} (5, 3.75);
+\node at (-1, 4.375) {Level 4};
+\draw (0,4) rectangle node {Assembly language level} (5, 4.75);
+\node at (-1, 5.375) {Level 5};
+\draw (0,5) rectangle node {Problem-oriented language level} (5, 5.75);
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}[t]{0.5\textwidth}
+{\bf IEEE-754 exceptions}\newline
+
+\begin{tabular}{|c|c|l|}
+\hline
+{\bf Characteristic} & {\bf Mantissa} & {\bf Meaning}\\
+\hline
+$0...0$ & Any & Subnormal\\\hline
+$1...1$ & $0...0$ & Overflow\\\hline
+$1...1$ & $\neq 0...0$ & NaN\\\hline
+\end{tabular}
+\end{minipage}
+
+\vspace*{1cm}
+
+\begin{minipage}[t]{0.5\textwidth}
+
+{\bf Full adder}\newline
+
+\begin{tabular}{ccc|cc}
+$a_i$ & $b_i$ & $c_i$ & $s_i$ & $c_{i+1}$\\\hline
+0&0&0&0&0\\
+0&0&1&1&0\\
+0&1&0&1&0\\
+0&1&1&0&1\\
+1&0&0&1&0\\
+1&0&1&0&1\\
+1&1&0&0&1\\
+1&1&1&1&1
+\end{tabular}
+\end{minipage}
+\begin{minipage}[t]{0.5\textwidth}
+{\bf Carry-lookahead-adder}\newline
+
+$g_i = a_i\wedge b_i$
+
+$p_i = (a_i\oplus b_i)$
+
+$c_{i+1} = g_i\vee p_i\wedge c_i$
+\end{minipage}
+
+\vspace*{1cm}
+
+\begin{minipage}[t]{0.5\textwidth}
+{\bf IEEE-754 arithmatic}\newline
+
+Addition:\\
+- Adjust towards the bigger exponent\\
+- Add mantissas\\
+- Handle the signs\\
+
+Multiplication:
+$$(-1)^{s_1\oplus s_2}\cdot (m_1\cdot m_2)\cdot b^{e_1+e_2}$$
+
+\end{minipage}
+\begin{minipage}[t]{0.5\textwidth}
+{\bf Pipeline speed-up}\newline
+
+$S=\displaystyle\frac{nk}{k+n-1}$\\
+
+Where:\\
+$n$ = no. of instructions\\
+$k$ = no. of pipeline stages
+\end{minipage}
+
+\clearpage
+
+\begin{minipage}[t]{0.5\textwidth}
+{\bf Hysteresis predictor}\newline
+
+\begin{tikzpicture}[scale=0.75]
+\node at (0,0) [circle, minimum size=2.4cm, draw, align=center] (10) {Weakly\\Taken\\10}; 
+\node at (6,0) [circle, minimum size=2.4cm, draw, align=center] (11) {Strongly\\Taken\\11}; 
+\node at (0,4) [circle, minimum size=2.4cm, draw, align=center] (00) {Strongly\\ Not Taken\\00}; 
+\node at (6,4) [circle, minimum size=2.4cm, draw, align=center] (01) {Weakly\\Not Taken\\01};
+ 
+\draw [->] (10) -- (00) node[midway,above,rotate=90] {NT};
+\draw [->] (01) -- (11) node[midway,above,rotate=90] {T};
+
+\draw [->] (10.20) -- (11.160) node[midway,above] {T};
+\draw [<-] (10.340) -- (11.200) node[midway,below] {NT};
+
+\draw [->] (00.20) -- (01.160) node[midway,above] {T};
+\draw [<-] (00.340) -- (01.200) node[midway,below] {NT};
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}[t]{0.5\textwidth}
+{\bf Saturation counter predictor}\newline
+
+\begin{tikzpicture}[scale=0.75]
+\node at (0,0) [circle, minimum size=2.4cm, draw, align=center] (10) {Weakly\\Taken\\10}; 
+\node at (6,0) [circle, minimum size=2.4cm, draw, align=center] (11) {Strongly\\Taken\\11}; 
+\node at (0,4) [circle, minimum size=2.4cm, draw, align=center] (00) {Strongly\\ Not Taken\\00}; 
+\node at (6,4) [circle, minimum size=2.4cm, draw, align=center] (01) {Weakly\\Not Taken\\01};
+ 
+\draw [->] (10.90) -- (01.230) node[midway,above] {NT};
+\draw [->] (01.270) -- (10.50) node[midway,below] {T};
+
+\draw [->] (10.20) -- (11.160) node[midway,above] {T};
+\draw [<-] (10.340) -- (11.200) node[midway,below] {NT};
+
+\draw [->] (00.20) -- (01.160) node[midway,above] {T};
+\draw [<-] (00.340) -- (01.200) node[midway,below] {NT};
+
+\end{tikzpicture}
+\end{minipage}
+
+\vspace*{1cm}
+
+\begin{center}
+\begin{minipage}[t]{0.5\textwidth}
+{\bf Very simple microprocessor}\newline
+
+\begin{tikzpicture}
+\draw (0,0) rectangle node {System Bus Interface} (6,1);
+\draw (0,3.5) -- (0.5,2) -- (2,2) -- (2.5,3.5) -- cycle node at (1.25,2.75) {ALU};
+\draw (3.5,2) rectangle node [align=center] {Execution Unit\\(Addresses)} (6,3.5);
+\draw (0,4.5) rectangle node {Registers} (2.5, 6);
+\draw (3.5,4.5) rectangle node {Control Unit} (6, 6);
+\draw[fill=white] (5.1,5.6) rectangle node {Clock} (6.1, 6.1);
+
+\draw [thick] (-0.25,-0.25) rectangle (6.25,6.25);
+
+\draw [<->] (3,1) -- (3,6.5);
+\draw [<->] (3,0) -- (3,-0.5);
+\draw [<->] (2.25,2.75) -- (3,2.75);
+\draw [<->] (3,4) -- (5,4);
+\draw [<->] (5,3.5) -- (5,4.5);
+\draw [<->] (2.5,5.25) -- (3,5.25);
+\end{tikzpicture}
+\end{minipage}
+\end{center}
+
+\end{document}
